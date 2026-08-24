@@ -104,3 +104,23 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+RandomDungeon/.vsconfig
+RandomDungeon/Assembly-CSharp.csproj
+RandomDungeon/RandomDungeon.sln
+RandomDungeon/.vs/RandomDungeon/project-colors.json
+RandomDungeon/.vs/RandomDungeon/FileContentIndex/21a49f47-2ded-48a7-a9e2-4ac272791f4b.vsidx
+RandomDungeon/.vs/RandomDungeon/FileContentIndex/3cc17768-ab6e-4024-ab1f-c82331dacd29.vsidx
+RandomDungeon/.vs/RandomDungeon/FileContentIndex/8b6e8ab7-f393-4218-aab4-5c131ac8137e.vsidx
+RandomDungeon/.vs/RandomDungeon/FileContentIndex/a0396cc7-b37b-474e-a7eb-920b88d6ca16.vsidx
+RandomDungeon/.vs/RandomDungeon/FileContentIndex/read.lock
+RandomDungeon/.vs/RandomDungeon/v17/.suo
+RandomDungeon/Library/
+RandomDungeon/Logs/
+RandomDungeon/obj/
+RandomDungeon/UserSettings/
+*.sln
+*.suo
+RandomDungeon/Temp/
+RandomDungeon/.vs/
+RandomDungeon/Assets/TextMesh Pro
