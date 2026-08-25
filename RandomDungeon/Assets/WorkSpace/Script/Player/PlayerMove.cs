@@ -1,26 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private Transform playerCamera = null;
-    [SerializeField] private float mouseSensitivity = 0;
     [SerializeField] private Rigidbody rb = null;
     [SerializeField] private float moveSpeed = 0;
-
-    private float xRotation = 0f;
     private Vector3 moveDirection = Vector3.zero;
-
+    private bool canMove = false;
     private void Start()
     {
-        // マウスカーソルを画面中央に固定
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if(!rb)
+        {
+            rb = GetComponent<Rigidbody>();
+        }
     }
 
     private void Update()
     {
-        Look();
         MoveInput();
     }
 
@@ -29,22 +25,13 @@ public class Player : MonoBehaviour
         Move();
     }
 
-    private void Look()
+    private void MoveInput()
     {
-        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+        if (!canMove)
+        {
+            return;
+        }
 
-        float mouseX = mouseDelta.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = mouseDelta.y * mouseSensitivity * Time.deltaTime;
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        transform.Rotate(Vector3.up * mouseX);
-    }
-    private Vector3 MoveInput()
-    {
         moveDirection = Vector3.zero;
 
         if (Keyboard.current.wKey.isPressed)
@@ -68,8 +55,6 @@ public class Player : MonoBehaviour
         }
 
         moveDirection.Normalize();
-
-        return moveDirection;
     }
     private void Move()
     {
@@ -79,5 +64,9 @@ public class Player : MonoBehaviour
         velocity.z = moveDirection.z * moveSpeed;
 
         rb.linearVelocity = velocity;
+    }
+    public void SetCanMove(bool canMove)
+    {
+        this.canMove = canMove;
     }
 }
