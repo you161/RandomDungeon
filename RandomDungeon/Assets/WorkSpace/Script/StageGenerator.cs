@@ -6,10 +6,17 @@ public class StageGenerator : MonoBehaviour
     [SerializeField] private GameObject roomPrefab = null;
     [SerializeField] private StageData stageData = null;
     [SerializeField] private GameObject goalItem = null;
+    [SerializeField] private GameObject enemyPrefab = null;
+    [SerializeField] private float enemySpawnOffsetY = 0;
 
     //生成された部屋の座標を保存
     private Dictionary<Vector2Int, GameObject> rooms
         = new Dictionary<Vector2Int, GameObject>();
+    //部屋同士の接続情報を保存
+    private Dictionary<Vector2Int, HashSet<Vector2Int>> connections
+        = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
+    //部屋の生成順序を保存
+    private List<Vector2Int> roomOrder = new List<Vector2Int>();
 
     private readonly Vector2Int[] directions =
     {
@@ -22,13 +29,16 @@ public class StageGenerator : MonoBehaviour
     private void Start()
     {
         GenerateStage();
+
         Vector2Int farthestPosition = FindFarthestRoom(Vector2Int.zero);
-        Debug.Log($"Farthest room position: {farthestPosition}");
+
         goalItem.transform.localPosition = new Vector3(
             farthestPosition.x * stageData.roomSize,
             goalItem.transform.localPosition.y,
             farthestPosition.y * stageData.roomSize
         );
+
+        SpawnEnemies(farthestPosition);
     }
 
     private void GenerateStage()
@@ -52,6 +62,8 @@ public class StageGenerator : MonoBehaviour
 
             //新しい部屋を生成
             CreateRoom(nextPosition);
+            //生成元の部屋と新しい部屋を接続
+            ConnectRooms(currentPosition, nextPosition);
             //次回は今回生成した部屋から生成する
             currentPosition = nextPosition;
         }
@@ -61,23 +73,27 @@ public class StageGenerator : MonoBehaviour
 
     private void CreateRoom(Vector2Int gridPosition)
     {
-        //グリッド座標をUnityの3D座標に変換
         Vector3 worldPosition = new Vector3(
             gridPosition.x * stageData.roomSize,
             0f,
             gridPosition.y * stageData.roomSize
         );
 
-        GameObject room = Instantiate(
-            roomPrefab,
-            worldPosition,
-            Quaternion.identity,
-            transform
-        );
+        GameObject room = Instantiate(roomPrefab,worldPosition,Quaternion.identity,transform);
 
-        //Dictionaryに保存
         rooms.Add(gridPosition, room);
+        connections.Add(gridPosition, new HashSet<Vector2Int>());
+
+        //生成順を保存
+        roomOrder.Add(gridPosition);
     }
+
+    private void ConnectRooms(Vector2Int roomA, Vector2Int roomB)
+    {
+        connections[roomA].Add(roomB);
+        connections[roomB].Add(roomA);
+    }
+
     private void UpdateRoomWalls()
     {
         foreach (var pair in rooms)
@@ -85,25 +101,24 @@ public class StageGenerator : MonoBehaviour
             Vector2Int position = pair.Key;
             GameObject roomObject = pair.Value;
 
-            bool hasUp = rooms.ContainsKey(position + Vector2Int.up);
-            bool hasDown = rooms.ContainsKey(position + Vector2Int.down);
-            bool hasLeft = rooms.ContainsKey(position + Vector2Int.left);
-            bool hasRight = rooms.ContainsKey(position + Vector2Int.right);
+            bool hasUp = connections[position].Contains(position + Vector2Int.up);
+            bool hasDown = connections[position].Contains(position + Vector2Int.down);
+            bool hasLeft = connections[position].Contains(position + Vector2Int.left);
+            bool hasRight = connections[position].Contains(position + Vector2Int.right);
 
             Room room = roomObject.GetComponent<Room>();
 
-            if(room != null)
+            if (room != null)
             {
-                room.SetWalls(hasUp,hasDown,hasLeft,hasRight);
+                room.SetWalls(hasUp, hasDown, hasLeft, hasRight);
             }
         }
     }
+
     private Vector2Int FindFarthestRoom(Vector2Int startPosition)
     {
         Queue<Vector2Int> queue = new Queue<Vector2Int>();
-
-        Dictionary<Vector2Int, int> distances
-            = new Dictionary<Vector2Int, int>();
+        Dictionary<Vector2Int, int> distances = new Dictionary<Vector2Int, int>();
 
         //スタート地点
         queue.Enqueue(startPosition);
@@ -116,16 +131,9 @@ public class StageGenerator : MonoBehaviour
         {
             Vector2Int currentPosition = queue.Dequeue();
 
-            foreach (Vector2Int direction in directions)
+            //現在の部屋と接続されている部屋だけを探索
+            foreach (Vector2Int nextPosition in connections[currentPosition])
             {
-                Vector2Int nextPosition = currentPosition + direction;
-
-                //部屋がない
-                if (!rooms.ContainsKey(nextPosition))
-                {
-                    continue;
-                }
-
                 //すでに探索済み
                 if (distances.ContainsKey(nextPosition))
                 {
@@ -133,7 +141,6 @@ public class StageGenerator : MonoBehaviour
                 }
 
                 int nextDistance = distances[currentPosition] + 1;
-
                 distances.Add(nextPosition, nextDistance);
                 queue.Enqueue(nextPosition);
 
@@ -147,5 +154,46 @@ public class StageGenerator : MonoBehaviour
         }
 
         return farthestPosition;
+    }
+    private void SpawnEnemies(Vector2Int goalPosition)
+    {
+        int interval = stageData.enemySpawnInterval;
+
+        for (int i = 0; i < roomOrder.Count; i++)
+        {
+            if (i == 0)
+            {
+                continue;
+            }
+
+            if (i % interval != 0)
+            {
+                continue;
+            }
+
+            Vector2Int roomPosition = roomOrder[i];
+
+            //ゴール部屋
+            if (roomPosition == goalPosition)
+            {
+                continue;
+            }
+
+            Room room = rooms[roomPosition].GetComponent<Room>();
+
+            if (room == null)
+            {
+                continue;
+            }
+
+            Transform spawnPoint = room.GetRandomEnemySpawnPoint();
+            spawnPoint.localPosition = new Vector3(
+                spawnPoint.localPosition.x,
+                spawnPoint.localPosition.y + enemySpawnOffsetY,
+                spawnPoint.localPosition.z
+            );
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+            enemy.SetActive(true);
+        }
     }
 }
