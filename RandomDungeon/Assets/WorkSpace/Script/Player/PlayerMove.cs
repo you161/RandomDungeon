@@ -4,35 +4,31 @@ using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb = null;
-    [SerializeField] private float moveSpeed = 0;
+    [SerializeField] private PlayerData playerData = null;
     private Vector3 moveDirection = Vector3.zero;
     private bool canMove = false;
+
     private void Start()
     {
-        if(!rb)
-        {
-            rb = GetComponent<Rigidbody>();
-        }
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        moveDirection = Vector3.zero;
     }
-
     private void Update()
     {
         MoveInput();
     }
-
     private void FixedUpdate()
     {
         Move();
     }
-
     private void MoveInput()
     {
+        moveDirection = Vector3.zero;
         if (!canMove)
         {
             return;
         }
-
-        moveDirection = Vector3.zero;
 
         if (Keyboard.current.wKey.isPressed)
         {
@@ -58,15 +54,31 @@ public class PlayerMove : MonoBehaviour
     }
     private void Move()
     {
-        Vector3 velocity = rb.linearVelocity;
+        Vector3 horizontalDelta;
+        horizontalDelta.x = moveDirection.x * playerData.moveSpeed * Time.fixedDeltaTime;
+        horizontalDelta.y = 0.0f;
+        horizontalDelta.z = moveDirection.z * playerData.moveSpeed * Time.fixedDeltaTime;
 
-        velocity.x = moveDirection.x * moveSpeed;
-        velocity.z = moveDirection.z * moveSpeed;
+        Vector3 targetPosition = rb.position + horizontalDelta;
 
-        rb.linearVelocity = velocity;
+        rb.MovePosition(targetPosition);
+
+        if(rb.linearVelocity != Vector3.zero)
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
+
+        if(rb.angularVelocity != Vector3.zero)
+        {
+            rb.angularVelocity = Vector3.zero;
+        }
     }
     public void SetCanMove(bool canMove)
     {
         this.canMove = canMove;
+        if (!canMove)
+        {
+            moveDirection = Vector3.zero;
+        }
     }
 }

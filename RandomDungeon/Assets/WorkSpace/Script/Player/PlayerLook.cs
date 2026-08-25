@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private Transform playerCamera = null;
-    [SerializeField] private float mouseSensitivity = 0;
+    [SerializeField] private PlayerData playerData = null;
     private float xRotation = 0f;
     private bool canMove = false;
     private void Start()
@@ -28,8 +28,8 @@ public class PlayerLook : MonoBehaviour
 
         Vector2 mouseDelta = Mouse.current.delta.ReadValue();
 
-        float mouseX = mouseDelta.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = mouseDelta.y * mouseSensitivity * Time.deltaTime;
+        float mouseX = mouseDelta.x * playerData.mouseSensitivity * Time.deltaTime;
+        float mouseY = mouseDelta.y * playerData.mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);

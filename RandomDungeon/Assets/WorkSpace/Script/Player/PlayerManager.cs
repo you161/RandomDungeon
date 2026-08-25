@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -10,9 +11,5 @@ public class PlayerManager : MonoBehaviour
     {
         playerMove.SetCanMove(canMove);
         playerLook.SetCanMove(canMove);
-    }
-    private void Update()
-    {
-
     }
 }
