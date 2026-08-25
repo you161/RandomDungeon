@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class StageGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject roomPrefab;
-    [SerializeField] private StageData stageData;
+    [SerializeField] private GameObject roomPrefab = null;
+    [SerializeField] private StageData stageData = null;
+    [SerializeField] private GameObject goalItem = null;
 
     //生成された部屋の座標を保存
     private Dictionary<Vector2Int, GameObject> rooms
@@ -21,6 +22,13 @@ public class StageGenerator : MonoBehaviour
     private void Start()
     {
         GenerateStage();
+        Vector2Int farthestPosition = FindFarthestRoom(Vector2Int.zero);
+        Debug.Log($"Farthest room position: {farthestPosition}");
+        goalItem.transform.localPosition = new Vector3(
+            farthestPosition.x * stageData.roomSize,
+            goalItem.transform.localPosition.y,
+            farthestPosition.y * stageData.roomSize
+        );
     }
 
     private void GenerateStage()
@@ -89,5 +97,55 @@ public class StageGenerator : MonoBehaviour
                 room.SetWalls(hasUp,hasDown,hasLeft,hasRight);
             }
         }
+    }
+    private Vector2Int FindFarthestRoom(Vector2Int startPosition)
+    {
+        Queue<Vector2Int> queue = new Queue<Vector2Int>();
+
+        Dictionary<Vector2Int, int> distances
+            = new Dictionary<Vector2Int, int>();
+
+        //スタート地点
+        queue.Enqueue(startPosition);
+        distances.Add(startPosition, 0);
+
+        Vector2Int farthestPosition = startPosition;
+        int maxDistance = 0;
+
+        while (queue.Count > 0)
+        {
+            Vector2Int currentPosition = queue.Dequeue();
+
+            foreach (Vector2Int direction in directions)
+            {
+                Vector2Int nextPosition = currentPosition + direction;
+
+                //部屋がない
+                if (!rooms.ContainsKey(nextPosition))
+                {
+                    continue;
+                }
+
+                //すでに探索済み
+                if (distances.ContainsKey(nextPosition))
+                {
+                    continue;
+                }
+
+                int nextDistance = distances[currentPosition] + 1;
+
+                distances.Add(nextPosition, nextDistance);
+                queue.Enqueue(nextPosition);
+
+                //今までで一番遠い部屋なら更新
+                if (nextDistance > maxDistance)
+                {
+                    maxDistance = nextDistance;
+                    farthestPosition = nextPosition;
+                }
+            }
+        }
+
+        return farthestPosition;
     }
 }
