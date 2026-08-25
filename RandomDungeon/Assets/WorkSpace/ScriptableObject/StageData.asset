@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageData
   roomCount: 10
   roomSize: 10
+  enemySpawnInterval: 3

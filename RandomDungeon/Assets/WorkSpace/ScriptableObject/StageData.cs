@@ -8,4 +8,6 @@ public class StageData : ScriptableObject
 
     [Header("部屋のサイズ")]
     public float roomSize = 5.0f;
+    [Header("敵の生成間隔")]
+    public int enemySpawnInterval = 3;
 }
