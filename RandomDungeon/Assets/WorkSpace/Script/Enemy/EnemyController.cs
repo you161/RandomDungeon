@@ -7,9 +7,16 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private EnemyMove enemyMove = null;
     [SerializeField] private EnemyAttack enemyAttack = null;
 
+    private bool isKnockback = false;
     private void Update()
     {
         float distance = Vector3.Distance(transform.position,targetPosition.position);
+
+        if (isKnockback)
+        {
+            enemyMove.SetCanMove(false);
+            return;
+        }
 
         //攻撃できる距離
         if (distance <= enemyData.attackDistance)
@@ -28,5 +35,10 @@ public class EnemyController : MonoBehaviour
                 enemyMove.SetCanMove(false);
             }
         }
+    }
+
+    public void SetIsKnockback(bool value)
+    {
+        isKnockback = value;
     }
 }
