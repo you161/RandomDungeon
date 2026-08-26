@@ -26,5 +26,6 @@ public class EnemyMove : MonoBehaviour
     public void SetCanMove(bool value)
     {
         canMove = value;
+        agent.isStopped = !canMove;
     }
 }

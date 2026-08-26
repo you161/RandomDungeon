@@ -10,13 +10,13 @@ public class EnemyController : MonoBehaviour
     private bool isKnockback = false;
     private void Update()
     {
-        float distance = Vector3.Distance(transform.position,targetPosition.position);
-
         if (isKnockback)
         {
             enemyMove.SetCanMove(false);
             return;
         }
+
+        float distance = Vector3.Distance(transform.position, targetPosition.position);
 
         //攻撃できる距離
         if (distance <= enemyData.attackDistance)
@@ -26,7 +26,10 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if(distance <= enemyData.moveDistance)
+            if(distance <= enemyData.moveDistance 
+                && !enemyAttack.GetIsAttack() 
+                && !enemyAttack.GetIsDelay()
+                )
             {
                 enemyMove.SetCanMove(true);
             }

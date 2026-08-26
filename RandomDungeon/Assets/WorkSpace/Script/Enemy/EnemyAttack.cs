@@ -78,4 +78,7 @@ public class EnemyAttack : MonoBehaviour
             countCoolTime = 0;
         }
     }
+
+    public bool GetIsAttack() { return isAttack; }
+    public bool GetIsDelay() { return isDelay; }
 }
