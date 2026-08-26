@@ -25,6 +25,7 @@ public class PlayerMove : MonoBehaviour
     private void MoveInput()
     {
         moveDirection = Vector3.zero;
+
         if (!canMove)
         {
             return;
@@ -73,9 +74,9 @@ public class PlayerMove : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
     }
-    public void SetCanMove(bool canMove)
+    public void SetCanMove(bool value)
     {
-        this.canMove = canMove;
+        canMove = value;
         if (!canMove)
         {
             moveDirection = Vector3.zero;
