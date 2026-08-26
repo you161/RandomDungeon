@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class StageGenerator : MonoBehaviour
@@ -7,6 +8,7 @@ public class StageGenerator : MonoBehaviour
     [SerializeField] private StageData stageData = null;
     [SerializeField] private GameObject goalItem = null;
     [SerializeField] private GameObject enemyPrefab = null;
+    [SerializeField] private NavMeshSurface navMeshSurface;
     [SerializeField] private float enemySpawnOffsetY = 0;
 
     //生成された部屋の座標を保存
@@ -37,6 +39,8 @@ public class StageGenerator : MonoBehaviour
             goalItem.transform.localPosition.y,
             farthestPosition.y * stageData.roomSize
         );
+
+        navMeshSurface.BuildNavMesh();
 
         SpawnEnemies(farthestPosition);
     }
