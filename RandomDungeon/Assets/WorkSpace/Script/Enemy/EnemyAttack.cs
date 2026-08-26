@@ -4,12 +4,15 @@ public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private EnemyData enemyData = null;
     [SerializeField] private GameObject attackCollision = null;
+    private float countDelayTime = 0;
     private float countAttackTime = 0;
     private float countCoolTime = 0;
     private bool isAttack = false;
+    private bool isDelay = false;
     private bool isCoolTime = false;
     private void Start()
     {
+        countDelayTime = 0;
         countAttackTime = 0;
         countCoolTime = 0;
         isAttack = false;
@@ -18,6 +21,7 @@ public class EnemyAttack : MonoBehaviour
     }
     private void Update()
     {
+        CountDelayTime();
         CountAttackTime();
         CountCoolTime();
     }
@@ -26,12 +30,27 @@ public class EnemyAttack : MonoBehaviour
         if (!isAttack && !isCoolTime)
         {
             isAttack = true;
+            isDelay = true;
+        }
+    }
+    private void CountDelayTime()
+    {
+        if (!isDelay)
+        {
+            return;
+        }
+
+        countDelayTime += Time.deltaTime;
+        if (countDelayTime >= enemyData.delayTime)
+        {
+            countDelayTime = 0;
+            isDelay = false;
             attackCollision.SetActive(true);
         }
     }
     private void CountAttackTime()
     {
-        if(!isAttack)
+        if(!isAttack || isDelay)
         {
             return;
         }
