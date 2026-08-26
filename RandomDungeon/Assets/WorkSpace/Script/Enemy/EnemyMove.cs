@@ -1,44 +1,28 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMove : MonoBehaviour
 {
     [SerializeField] private Transform targetPosition = null;
     [SerializeField] private EnemyData enemyData = null;
-    [SerializeField] private Rigidbody rb = null;
+    [SerializeField] private NavMeshAgent agent = null;
 
-    private Vector3 moveDirection = Vector3.zero;
     private bool canMove = false;
 
     private void Start()
     {
-        moveDirection = Vector3.zero;
-        canMove = false;
+        agent.speed = enemyData.moveSpeed;
     }
 
     private void Update()
     {
-        moveDirection = targetPosition.position - transform.position;
-        moveDirection.y = 0.0f;
-
-        if (moveDirection.sqrMagnitude != 0.0f)
+        if (!canMove)
         {
-            moveDirection.Normalize();
+            return;
         }
-    }
 
-    private void FixedUpdate()
-    {
-        if (canMove)
-        {
-            Move();
-        }
+        agent.SetDestination(targetPosition.position);
     }
-
-    private void Move()
-    {
-        rb.MovePosition(rb.position + moveDirection * enemyData.moveSpeed * Time.fixedDeltaTime);
-    }
-
     public void SetCanMove(bool value)
     {
         canMove = value;
