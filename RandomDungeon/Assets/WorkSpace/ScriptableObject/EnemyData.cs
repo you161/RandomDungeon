@@ -19,4 +19,6 @@ public class EnemyData : ScriptableObject
     public string tagName = "";
     [Header("HP")]
     public float hp = 0;
+    [Header("攻撃ダメージ")]
+    public float attackDamage = 0;
 }

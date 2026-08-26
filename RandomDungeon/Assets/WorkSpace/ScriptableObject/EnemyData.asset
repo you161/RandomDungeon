@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1172a37238c3d24987171ef5f1a39fd, type: 3}
   m_Name: EnemyData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  moveSpeed: 2
-  coolTime: 3
-  attackTime: 1
+  moveSpeed: 3
+  coolTime: 2
+  attackTime: 0.2
   delayTime: 1
-  attackDistance: 2
-  moveDistance: 5
+  attackDistance: 3
+  moveDistance: 6
   tagName: Enemy
-  hp: 10
+  hp: 6
+  attackDamage: 2

@@ -15,6 +15,8 @@ public class PlayerData : ScriptableObject
     public float delayTime = 0;
     [Header("タグ名")]
     public string tagName = "";
+    [Header("HP")]
+    public float hp = 0;
     [Header("攻撃ダメージ")]
     public float attackDamage = 0;
 }

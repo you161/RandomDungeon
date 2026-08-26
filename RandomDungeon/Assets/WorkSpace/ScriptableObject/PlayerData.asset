@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   moveSpeed: 5
-  mouseSensitivity: 30
+  mouseSensitivity: 20
   coolTime: 0.5
   attackTime: 0.2
   delayTime: 0
   tagName: Player
+  hp: 10
   attackDamage: 2
