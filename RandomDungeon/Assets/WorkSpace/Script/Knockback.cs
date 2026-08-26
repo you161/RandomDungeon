@@ -24,8 +24,6 @@ public class Knockback : MonoBehaviour
 
     public void StartKnockback(Vector3 sourcePosition,bool value)
     {
-        Debug.Log("StartKnockback開始");
-
         knockbackDirection = transform.position - sourcePosition;
         knockbackDirection.y = 0.0f;
         knockbackDirection.Normalize();
@@ -40,22 +38,15 @@ public class Knockback : MonoBehaviour
         }
         else
         {
-            enemyController.SetIsKnockback(isKnockback);
+            enemyController.SetIsKnockback(true);
         }
-
-
-        Debug.Log($"isKnockback: {isKnockback}");
     }
     private void MoveKnockback()
     {
-        Debug.Log($"MoveKnockback: {isKnockback}");
-
         if (!isKnockback)
         {
             return;
         }
-
-            Debug.Log("実際に移動処理を実行");
 
         float moveDistance = knockbackSpeed * Time.deltaTime;
         transform.position += knockbackDirection * moveDistance;
@@ -71,7 +62,7 @@ public class Knockback : MonoBehaviour
             }
             else
             {
-                enemyController.SetIsKnockback(isKnockback);
+                enemyController.SetIsKnockback(false);
             }
         }
     }
