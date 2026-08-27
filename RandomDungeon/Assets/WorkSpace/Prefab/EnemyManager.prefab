@@ -166,6 +166,7 @@ MonoBehaviour:
   hpImage: {fileID: 5276461129144461205}
   enemyData: {fileID: 11400000, guid: 0c0b3603771620440a61c163a6829c34, type: 2}
   playerData: {fileID: 11400000, guid: 1bd15c9d3551c674ca74cab67f6b5501, type: 2}
+  damageEffect: {fileID: 4515497926535975121, guid: bddb971e34eb14d48be30c7b922eb077, type: 3}
 --- !u!114 &7649873826804570032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackCollision
   playerData: {fileID: 11400000, guid: 1bd15c9d3551c674ca74cab67f6b5501, type: 2}
+  enemyData: {fileID: 11400000, guid: 0c0b3603771620440a61c163a6829c34, type: 2}
   enemy: {fileID: 761724563149976409}
 --- !u!1 &6735340797013149199
 GameObject:
