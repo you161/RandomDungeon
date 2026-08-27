@@ -5,6 +5,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform targetPosition = null;
     [SerializeField] private EnemyData enemyData = null;
     [SerializeField] private EnemyMove enemyMove = null;
+    [SerializeField] private EnemyPatrol enemyPatrol = null;
     [SerializeField] private EnemyAttack enemyAttack = null;
     private bool isKnockback = false;
     private void Start()
@@ -19,28 +20,32 @@ public class EnemyController : MonoBehaviour
             enemyMove.SetCanMove(false);
             return;
         }
+        Move();
+    }
+    private void Move()
+    {
 
         float distance = Vector3.Distance(transform.position, targetPosition.position);
 
-        //攻撃できる距離
         if (distance <= enemyData.attackDistance)
         {
+            enemyPatrol.SetPatrol(false);
+
             enemyMove.SetCanMove(false);
             enemyAttack.Attack();
         }
+        else if (distance <= enemyData.moveDistance)
+        {
+            enemyPatrol.SetPatrol(false);
+
+            enemyMove.SetCanMove(true);
+            enemyMove.SetMoveSpeed(enemyData.enemyMoveSpeed);
+            enemyMove.Move(targetPosition.position);
+        }
         else
         {
-            if (distance <= enemyData.moveDistance
-                && !enemyAttack.GetIsAttack()
-                && !enemyAttack.GetIsDelay())
-            {
-                enemyMove.SetCanMove(true);
-                enemyMove.Move(targetPosition.position);
-            }
-            else
-            {
-                enemyMove.SetCanMove(false);
-            }
+            enemyMove.SetMoveSpeed(enemyData.enemyMoveSpeed / 2);
+            enemyPatrol.SetPatrol(true);
         }
     }
     public void SetIsKnockback(bool value)
