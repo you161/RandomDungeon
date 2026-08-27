@@ -17,6 +17,12 @@ public class EnemyMove : MonoBehaviour
     public void SetCanMove(bool value)
     {
         canMove = value;
+
+        if (!agent.isOnNavMesh)
+        {
+            return;
+        }
+
         agent.isStopped = !canMove;
     }
     public void SetMoveSpeed(float speed)
