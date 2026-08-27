@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4199004609861327166}
   - component: {fileID: 1056506314297800914}
   - component: {fileID: 2402159252241070581}
+  - component: {fileID: 6621078317960659055}
   - component: {fileID: 5280006948101481126}
   m_Layer: 0
   m_Name: EscapeEnemyManager
@@ -102,8 +103,9 @@ MonoBehaviour:
   targetPosition: {fileID: 0}
   enemyMove: {fileID: 1056506314297800914}
   agent: {fileID: 5280006948101481126}
-  stageGenerator: {fileID: 0}
+  stagePathFinder: {fileID: 0}
   enemyData: {fileID: 11400000, guid: 0c0b3603771620440a61c163a6829c34, type: 2}
+  enemyHP: {fileID: 2402159252241070581}
 --- !u!114 &1056506314297800914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +134,20 @@ MonoBehaviour:
   hpImage: {fileID: 5276461129144461205}
   enemyData: {fileID: 11400000, guid: 0c0b3603771620440a61c163a6829c34, type: 2}
   playerData: {fileID: 11400000, guid: 1bd15c9d3551c674ca74cab67f6b5501, type: 2}
+--- !u!114 &6621078317960659055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404981761913641886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776a2d8577ae9164c966b3cd3833099c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnLockClear
+  enemyHP: {fileID: 2402159252241070581}
+  stageManager: {fileID: 0}
 --- !u!195 &5280006948101481126
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -143,7 +159,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.8
   m_Speed: 3.5
-  m_Acceleration: 16
+  m_Acceleration: 50
   avoidancePriority: 50
   m_AngularSpeed: 720
   m_StoppingDistance: 0

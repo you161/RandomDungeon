@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6722974385849253857}
   - component: {fileID: 2311834325737534885}
   - component: {fileID: 1056506314297800914}
+  - component: {fileID: 7273744671561093775}
   - component: {fileID: 2664716784891768363}
   - component: {fileID: 2402159252241070581}
   - component: {fileID: 7649873826804570032}
@@ -105,6 +106,7 @@ MonoBehaviour:
   targetPosition: {fileID: 0}
   enemyData: {fileID: 11400000, guid: 0c0b3603771620440a61c163a6829c34, type: 2}
   enemyMove: {fileID: 1056506314297800914}
+  enemyPatrol: {fileID: 7273744671561093775}
   enemyAttack: {fileID: 2664716784891768363}
 --- !u!114 &1056506314297800914
 MonoBehaviour:
@@ -118,6 +120,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba971d8fa063c341b5b2261a728c579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMove
+  agent: {fileID: 5280006948101481126}
+--- !u!114 &7273744671561093775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404981761913641886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053f13361cb0a9b44885b8ab3e9931be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrol
+  enemyData: {fileID: 11400000, guid: 0c0b3603771620440a61c163a6829c34, type: 2}
+  enemyMove: {fileID: 1056506314297800914}
+  stagePathFinder: {fileID: 0}
   agent: {fileID: 5280006948101481126}
 --- !u!114 &2664716784891768363
 MonoBehaviour:
