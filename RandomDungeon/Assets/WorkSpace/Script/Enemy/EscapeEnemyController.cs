@@ -9,12 +9,14 @@ public class EscapeEnemyController : MonoBehaviour
     [SerializeField] private StagePathFinder stagePathFinder = null;
     [SerializeField] private EnemyData enemyData = null;
     [SerializeField] private EnemyHP enemyHP = null;
+    [SerializeField] private GameObject smokeEffect = null;
     private bool isEscaping = false;
     private Vector3 escapeDestination;
     private void Start()
     {
         enemyMove.SetMoveSpeed(enemyData.escapeEnemyMoveSpeed);
         enemyHP.OnDamage += EscapeByWarp;
+        smokeEffect.SetActive(false);
     }
     private void Update()
     {
@@ -73,6 +75,10 @@ public class EscapeEnemyController : MonoBehaviour
     }
     private void EscapeByWarp()
     {
+        GameObject effect = Instantiate(smokeEffect,transform.position,Quaternion.identity);
+        effect.SetActive(true);
+        Destroy(effect, 2.0f);
+
         Vector3 warpPosition =
             stagePathFinder.GetWarpDestination(
                 transform.position,
