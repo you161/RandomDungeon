@@ -23,3 +23,5 @@ MonoBehaviour:
   tagName: Enemy
   hp: 6
   attackDamage: 2
+  waitTime: 1
+  damageCoolTime: 0
