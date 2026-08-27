@@ -35,7 +35,7 @@ public class StagePathFinder : MonoBehaviour
                 queue.Enqueue(nextPosition);
             }
         }
-
+        
         return distances;
     }
 
@@ -116,17 +116,14 @@ public class StagePathFinder : MonoBehaviour
     }
 
     //巡回先を取得
-    public Vector3 GetPatrolDestination(
-        Vector3 enemyPosition)
+    public Vector3 GetRandomPatrolDestination(Vector3 enemyPosition)
     {
-        Dictionary<Vector2Int, HashSet<Vector2Int>> connections = stageGenerator.GetConnections();
+        Vector2Int currentRoomPosition = new Vector2Int(
+            Mathf.RoundToInt(enemyPosition.x / stageData.roomSize),
+            Mathf.RoundToInt(enemyPosition.z / stageData.roomSize)
+        );
 
-        //現在の部屋
-        Vector2Int currentRoomPosition =
-            new(
-                Mathf.RoundToInt(enemyPosition.x / stageData.roomSize),
-                Mathf.RoundToInt( enemyPosition.z / stageData.roomSize)
-            );
+        Dictionary<Vector2Int, HashSet<Vector2Int>> connections = stageGenerator.GetConnections();
 
         if (!connections.ContainsKey(currentRoomPosition))
         {
@@ -140,16 +137,68 @@ public class StagePathFinder : MonoBehaviour
             return enemyPosition;
         }
 
-        //HashSetをListに変換
-        List<Vector2Int> roomList = new(connectedRooms);
-
-        //ランダムな接続先を選ぶ
-        Vector2Int nextRoom = roomList[Random.Range(0, roomList.Count)];
+        List<Vector2Int> roomList = new (connectedRooms);
+        Vector2Int nextRoomPosition = roomList[Random.Range(0, roomList.Count)];
 
         return new Vector3(
-            nextRoom.x * stageData.roomSize,
+            nextRoomPosition.x * stageData.roomSize,
             enemyPosition.y,
-            nextRoom.y * stageData.roomSize
+            nextRoomPosition.y * stageData.roomSize
+        );
+    }
+    public Vector3 GetWarpDestination(Vector3 enemyPosition,Vector3 playerPosition)
+    {
+        Dictionary<Vector2Int, GameObject> rooms = stageGenerator.GetRooms();
+        List<Vector2Int> candidates = new();
+
+        Vector2Int currentEnemyRoom =
+            new(
+                Mathf.RoundToInt(enemyPosition.x / stageData.roomSize),
+                Mathf.RoundToInt(enemyPosition.z / stageData.roomSize)
+            );
+
+        Vector2Int playerRoom =
+            new(
+                Mathf.RoundToInt(playerPosition.x / stageData.roomSize),
+                Mathf.RoundToInt(playerPosition.z / stageData.roomSize)
+            );
+
+        //プレイヤーの部屋からの距離を取得
+        Dictionary<Vector2Int, int> distances = GetRoomDistances(playerRoom);
+
+        foreach (var pair in distances)
+        {
+            Vector2Int roomPosition = pair.Key;
+            int distance = pair.Value;
+
+            //現在いる部屋にはワープしない
+            if (roomPosition == currentEnemyRoom)
+            {
+                continue;
+            }
+
+            //プレイヤーから一定距離以上離れた部屋だけ候補
+            if (distance < stageData.escapeEnemyMinDistance)
+            {
+                continue;
+            }
+
+            candidates.Add(roomPosition);
+        }
+
+        //候補がない場合は、現在位置を返す
+        if (candidates.Count == 0)
+        {
+            return enemyPosition;
+        }
+
+        //候補からランダムに選択
+        Vector2Int selectedRoom = candidates[Random.Range(0, candidates.Count)];
+
+        return new Vector3(
+            selectedRoom.x * stageData.roomSize,
+            enemyPosition.y,
+            selectedRoom.y * stageData.roomSize
         );
     }
 }
