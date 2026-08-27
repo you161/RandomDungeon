@@ -8,15 +8,21 @@ public class EscapeEnemyController : MonoBehaviour
     [SerializeField] private NavMeshAgent agent = null;
     [SerializeField] private StagePathFinder stagePathFinder = null;
     [SerializeField] private EnemyData enemyData = null;
+    [SerializeField] private EnemyHP enemyHP = null;
     private bool isEscaping = false;
     private Vector3 escapeDestination;
     private void Start()
     {
         enemyMove.SetMoveSpeed(enemyData.escapeEnemyMoveSpeed);
+        enemyHP.OnDamage += EscapeByWarp;
     }
     private void Update()
     {
-        float distance = Vector3.Distance(transform.position,targetPosition.position);
+        Move();
+    }
+    private void Move()
+    {
+        float distance = Vector3.Distance(transform.position, targetPosition.position);
 
         //まだ逃げていない
         if (!isEscaping)
@@ -64,5 +70,25 @@ public class EscapeEnemyController : MonoBehaviour
 
         enemyMove.SetCanMove(true);
         enemyMove.Move(escapeDestination);
+    }
+    private void EscapeByWarp()
+    {
+        Vector3 warpPosition =
+            stagePathFinder.GetWarpDestination(
+                transform.position,
+                targetPosition.position
+            );
+
+        //移動を停止
+        isEscaping = false;
+        enemyMove.SetCanMove(false);
+
+        if (agent.isOnNavMesh)
+        {
+            //現在の経路をリセット
+            agent.ResetPath();
+        }
+        //ワープ
+        agent.Warp(warpPosition);
     }
 }

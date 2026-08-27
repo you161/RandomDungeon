@@ -12,6 +12,7 @@ public class EnemyHP : MonoBehaviour
     private float currentHP;
     private float damage;
     public event Action OnDead;
+    public event Action OnDamage;
 
     private void Start()
     {
@@ -26,6 +27,8 @@ public class EnemyHP : MonoBehaviour
         {
             Dead();
         }
+
+        OnDamage?.Invoke();
 
         currentHP -= damage;
         //現在HPの割合
