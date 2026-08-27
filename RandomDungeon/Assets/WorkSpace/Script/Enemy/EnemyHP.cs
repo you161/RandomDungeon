@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 public class EnemyHP : MonoBehaviour
 {
     [SerializeField] private Image hpImage = null;
     [SerializeField] private EnemyData enemyData = null;
     [SerializeField] private PlayerData playerData = null;
+    [SerializeField] private GameObject damageEffect = null;
 
     private float maxHP;
     private float currentHP;
@@ -25,9 +27,12 @@ public class EnemyHP : MonoBehaviour
     {
         if(currentHP - damage <= 0)
         {
+            DamageEffect(transform.position);
             Dead();
+            return;
         }
 
+        DamageEffect(transform.position);
         OnDamage?.Invoke();
 
         currentHP -= damage;
@@ -37,6 +42,11 @@ public class EnemyHP : MonoBehaviour
         Vector3 size = hpImage.rectTransform.localScale;
         size.x = hpRate;
         hpImage.rectTransform.localScale = size;
+    }
+    private void DamageEffect(Vector3 pos)
+    {
+        GameObject effect = Instantiate(damageEffect, pos,Quaternion.identity);
+        Destroy(effect,1.0f);
     }
     private void Dead()
     {

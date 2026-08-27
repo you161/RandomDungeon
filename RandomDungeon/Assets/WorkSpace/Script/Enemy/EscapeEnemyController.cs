@@ -16,7 +16,6 @@ public class EscapeEnemyController : MonoBehaviour
     {
         enemyMove.SetMoveSpeed(enemyData.escapeEnemyMoveSpeed);
         enemyHP.OnDamage += EscapeByWarp;
-        smokeEffect.SetActive(false);
     }
     private void Update()
     {
@@ -76,7 +75,6 @@ public class EscapeEnemyController : MonoBehaviour
     private void EscapeByWarp()
     {
         GameObject effect = Instantiate(smokeEffect,transform.position,Quaternion.identity);
-        effect.SetActive(true);
         Destroy(effect, 2.0f);
 
         Vector3 warpPosition =
