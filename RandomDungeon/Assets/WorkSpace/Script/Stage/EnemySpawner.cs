@@ -113,9 +113,34 @@ public class EnemySpawner : MonoBehaviour
             candidates.Add(roomPosition);
         }
 
+        //指定距離以上の部屋がない場合
         if (candidates.Count == 0)
         {
-            Debug.LogWarning("逃げる敵を生成できる部屋がない");
+            Debug.LogWarning("指定距離以上の部屋がないため、ゴール以外の部屋から選択");
+
+            //すべての部屋から候補を探す
+            foreach (var roomPosition in rooms.Keys)
+            {
+                //スタート部屋には生成しない
+                if (roomPosition == Vector2Int.zero)
+                {
+                    continue;
+                }
+
+                //ゴール部屋には生成しない
+                if (roomPosition == goalPosition)
+                {
+                    continue;
+                }
+
+                candidates.Add(roomPosition);
+            }
+        }
+
+        //それでも候補がない場合
+        if (candidates.Count == 0)
+        {
+            Debug.LogError("逃げる敵を生成できる部屋がありません");
             return;
         }
 
