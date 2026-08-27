@@ -25,4 +25,6 @@ public class EnemyData : ScriptableObject
     public float hp = 0;
     [Header("攻撃ダメージ")]
     public float attackDamage = 0;
+    [Header("次の移動に移るまでの時間")]
+    public float waitTime = 0;
 }
