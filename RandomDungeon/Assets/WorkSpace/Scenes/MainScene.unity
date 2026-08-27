@@ -884,31 +884,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 404981761913641886, guid: 7ffb6c96cf2ec054b88058d46d46bea9, type: 3}
   m_PrefabInstance: {fileID: 1053045382}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1012357886 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2402159252241070581, guid: 7ffb6c96cf2ec054b88058d46d46bea9, type: 3}
-  m_PrefabInstance: {fileID: 1053045382}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1012357884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd5802980c24dc4490a4f1c9692683f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHP
---- !u!114 &1012357892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1012357884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 776a2d8577ae9164c966b3cd3833099c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UnLockClear
-  enemyHP: {fileID: 1012357886}
-  stageManager: {fileID: 5426300}
 --- !u!1001 &1053045382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -966,10 +941,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 330585543}
     - target: {fileID: 4199004609861327166, guid: 7ffb6c96cf2ec054b88058d46d46bea9, type: 3}
-      propertyPath: stageGenerator
-      value: 
-      objectReference: {fileID: 5426295}
-    - target: {fileID: 4199004609861327166, guid: 7ffb6c96cf2ec054b88058d46d46bea9, type: 3}
       propertyPath: targetPosition
       value: 
       objectReference: {fileID: 1331892645}
@@ -977,17 +948,14 @@ PrefabInstance:
       propertyPath: stagePathFinder
       value: 
       objectReference: {fileID: 5426299}
-    - target: {fileID: 5280006948101481126, guid: 7ffb6c96cf2ec054b88058d46d46bea9, type: 3}
-      propertyPath: m_Acceleration
-      value: 50
-      objectReference: {fileID: 0}
+    - target: {fileID: 6621078317960659055, guid: 7ffb6c96cf2ec054b88058d46d46bea9, type: 3}
+      propertyPath: stageManager
+      value: 
+      objectReference: {fileID: 5426300}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 404981761913641886, guid: 7ffb6c96cf2ec054b88058d46d46bea9, type: 3}
-      insertIndex: 6
-      addedObject: {fileID: 1012357892}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ffb6c96cf2ec054b88058d46d46bea9, type: 3}
 --- !u!1 &1084471923
 GameObject:
@@ -1576,6 +1544,10 @@ PrefabInstance:
       propertyPath: cameraObject
       value: 
       objectReference: {fileID: 330585543}
+    - target: {fileID: 7273744671561093775, guid: db8a679a75e5aa74683e96be86abe945, type: 3}
+      propertyPath: stagePathFinder
+      value: 
+      objectReference: {fileID: 5426299}
     - target: {fileID: 7649873826804570032, guid: db8a679a75e5aa74683e96be86abe945, type: 3}
       propertyPath: playerMove
       value: 
