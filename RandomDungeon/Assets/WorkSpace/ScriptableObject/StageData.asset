@@ -15,3 +15,7 @@ MonoBehaviour:
   roomCount: 10
   roomSize: 10
   enemySpawnInterval: 2
+  maxWidth: 10
+  maxHeight: 3
+  latestRoomRate: 0.8
+  escapeEnemyMinDistance: 5

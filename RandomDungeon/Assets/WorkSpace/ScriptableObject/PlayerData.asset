@@ -15,7 +15,7 @@ MonoBehaviour:
   moveSpeed: 5
   mouseSensitivity: 20
   coolTime: 0.5
-  attackTime: 0.2
+  attackTime: 0.1
   delayTime: 0
   tagName: Player
   hp: 10
