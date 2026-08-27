@@ -3,29 +3,24 @@ using UnityEngine.AI;
 
 public class EnemyMove : MonoBehaviour
 {
-    [SerializeField] private Transform targetPosition = null;
-    [SerializeField] private EnemyData enemyData = null;
     [SerializeField] private NavMeshAgent agent = null;
-
     private bool canMove = false;
-
-    private void Start()
-    {
-        agent.speed = enemyData.moveSpeed;
-    }
-
-    private void Update()
+    public void Move(Vector3 destination)
     {
         if (!canMove)
         {
             return;
         }
 
-        agent.SetDestination(targetPosition.position);
+        agent.SetDestination(destination);
     }
     public void SetCanMove(bool value)
     {
         canMove = value;
         agent.isStopped = !canMove;
+    }
+    public void SetMoveSpeed(float speed)
+    {
+        agent.speed = speed;
     }
 }

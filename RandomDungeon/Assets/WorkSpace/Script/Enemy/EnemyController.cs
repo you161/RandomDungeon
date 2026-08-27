@@ -6,8 +6,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private EnemyData enemyData = null;
     [SerializeField] private EnemyMove enemyMove = null;
     [SerializeField] private EnemyAttack enemyAttack = null;
-
     private bool isKnockback = false;
+    private void Start()
+    {
+        enemyMove.SetMoveSpeed(enemyData.enemyMoveSpeed);
+    }
+
     private void Update()
     {
         if (isKnockback)
@@ -26,12 +30,12 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if(distance <= enemyData.moveDistance 
-                && !enemyAttack.GetIsAttack() 
-                && !enemyAttack.GetIsDelay()
-                )
+            if (distance <= enemyData.moveDistance
+                && !enemyAttack.GetIsAttack()
+                && !enemyAttack.GetIsDelay())
             {
                 enemyMove.SetCanMove(true);
+                enemyMove.Move(targetPosition.position);
             }
             else
             {
@@ -39,7 +43,6 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
-
     public void SetIsKnockback(bool value)
     {
         isKnockback = value;

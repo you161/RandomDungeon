@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class EnemyHP : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class EnemyHP : MonoBehaviour
     private float maxHP;
     private float currentHP;
     private float damage;
+    public event Action OnDead;
 
     private void Start()
     {
@@ -22,7 +24,7 @@ public class EnemyHP : MonoBehaviour
     {
         if(currentHP - damage <= 0)
         {
-            Destroy(this.gameObject);
+            Dead();
         }
 
         currentHP -= damage;
@@ -32,5 +34,10 @@ public class EnemyHP : MonoBehaviour
         Vector3 size = hpImage.rectTransform.localScale;
         size.x = hpRate;
         hpImage.rectTransform.localScale = size;
+    }
+    private void Dead()
+    {
+        OnDead?.Invoke();
+        Destroy(gameObject);
     }
 }
