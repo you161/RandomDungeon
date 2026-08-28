@@ -16,7 +16,7 @@ MonoBehaviour:
   escapeEnemyMoveSpeed: 6
   moveDistance: 6
   escapeDistance: 6
-  coolTime: 1.5
+  coolTime: 1
   attackTime: 0.1
   delayTime: 0.5
   attackDistance: 3
@@ -24,4 +24,3 @@ MonoBehaviour:
   hp: 6
   attackDamage: 2
   waitTime: 1
-  damageCoolTime: 0
