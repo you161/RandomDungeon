@@ -6,7 +6,7 @@ public class FadeManager : MonoBehaviour
 {
     [SerializeField] private Image fadeImage = null;
     [SerializeField] private float fadeDuration = 1.0f;
-
+    private bool isFading = false;
     private void Start()
     {
         StartCoroutine(FadeIn());
@@ -15,6 +15,7 @@ public class FadeManager : MonoBehaviour
     public IEnumerator FadeOut()
     {
         float elapsedTime = 0.0f;
+        isFading = true;
 
         while (elapsedTime < fadeDuration)
         {
@@ -26,11 +27,13 @@ public class FadeManager : MonoBehaviour
         }
 
         SetAlpha(1.0f);
+        isFading = false;
     }
 
     public IEnumerator FadeIn()
     {
         float elapsedTime = 0.0f;
+        isFading = true;
 
         while (elapsedTime < fadeDuration)
         {
@@ -42,6 +45,7 @@ public class FadeManager : MonoBehaviour
         }
 
         SetAlpha(0.0f);
+        isFading = false;
     }
 
     private void SetAlpha(float alpha)
@@ -49,5 +53,10 @@ public class FadeManager : MonoBehaviour
         Color color = fadeImage.color;
         color.a = alpha;
         fadeImage.color = color;
+    }
+
+    public bool GetIsFading()
+    {
+        return isFading;
     }
 }
