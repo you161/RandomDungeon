@@ -1,24 +1,15 @@
 using UnityEngine;
 
-public class EnemyAttackCollision : AttackCollision
+public class EnemyAttackCollision : MonoBehaviour
 {
     [SerializeField] private PlayerData playerData = null;
+    [SerializeField] private EnemyAttack enemyAttack = null;
     [SerializeField] private Transform enemy = null;
-    private void Start()
-    {
-        isCool = false;
-        countTime = 0;
-        attackTime = playerData.attackTime;
-    }
-    private void Update()
-    {
-        UpdateCoolTime();
-    }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag(playerData.tagName) && !isCool)
+        if(!enemyAttack.GetIsHitCool() && other.gameObject.CompareTag(playerData.tagName))
         {
-            StartCoolTime();
+            enemyAttack.StartHitCool();
 
             Knockback knockback = other.gameObject.GetComponent<Knockback>();
             if (knockback != null)

@@ -2,28 +2,28 @@ using UnityEngine;
 
 public class AttackCollision : MonoBehaviour
 {
-    protected bool isCool = false;
-    protected float countTime = 0f;
-    protected float attackTime;
+    protected bool isHitCool = false;
+    protected float countHitCoolTime = 0f;
+    protected float hitCoolTime = 0f;
 
     protected void UpdateCoolTime()
     {
-        if (!isCool)
+        if (!isHitCool)
         {
             return;
         }
 
-        countTime += Time.deltaTime;
+        countHitCoolTime += Time.deltaTime;
 
-        if (countTime >= attackTime)
+        if (countHitCoolTime >= hitCoolTime)
         {
-            isCool = false;
-            countTime = 0f;
+            isHitCool = false;
+            countHitCoolTime = 0f;
         }
     }
 
     protected void StartCoolTime()
     {
-        isCool = true;
+        isHitCool = true;
     }
 }

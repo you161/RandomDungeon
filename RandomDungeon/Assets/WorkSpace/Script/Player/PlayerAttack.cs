@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : AttackCollision
 {
     [SerializeField] private PlayerData playerData = null;
+    [SerializeField] private EnemyData enemyData = null;
     [SerializeField] private GameObject attackCollision = null;
+    [SerializeField] private Image coolTimeImage = null;
+    [SerializeField] protected GameObject coolTimeObject = null;
 
     private bool isAttack = false;
     private bool isCool = false;
@@ -23,6 +27,12 @@ public class PlayerAttack : MonoBehaviour
         countCoolTime = 0;
         countDelayTime = 0;
         attackCollision.SetActive(false);
+
+        isHitCool = false;
+        countHitCoolTime = 0;
+        hitCoolTime = enemyData.attackTime;
+
+        coolTimeObject.SetActive(false);
     }
 
     private void Update()
@@ -40,6 +50,8 @@ public class PlayerAttack : MonoBehaviour
         CountDelayTime();
         CountAttackTime();
         CountCoolTime();
+
+        UpdateCoolTime();
     }
 
     private void Attack()
@@ -91,14 +103,36 @@ public class PlayerAttack : MonoBehaviour
         }
 
         countCoolTime += Time.deltaTime;
+
+        if (!coolTimeObject.activeSelf)
+        {
+            coolTimeObject.SetActive(true);
+        }
+
+        float changeSize = countCoolTime / playerData.coolTime;
+        changeSize = Mathf.Clamp01(changeSize);
+        Vector3 size = coolTimeImage.rectTransform.localScale;
+        size.x = changeSize;
+
+        coolTimeImage.rectTransform.localScale = size;
+
         if (countCoolTime >= playerData.coolTime)
         {
             countCoolTime = 0;
             isCool = false;
+            coolTimeObject.SetActive(false);
         }
     }
     public void SetCanMove(bool canMove)
     {
         this.canMove = canMove;
+    }
+    public void StartHitCool()
+    {
+        StartCoolTime();
+    }
+    public bool GetIsHitCool()
+    {
+        return isHitCool;
     }
 }

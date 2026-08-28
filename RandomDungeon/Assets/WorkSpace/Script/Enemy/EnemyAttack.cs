@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : AttackCollision
 {
     [SerializeField] private EnemyData enemyData = null;
+    [SerializeField] private PlayerData playerData = null;
     [SerializeField] private GameObject attackCollision = null;
     private float countDelayTime = 0;
     private float countAttackTime = 0;
@@ -18,12 +19,18 @@ public class EnemyAttack : MonoBehaviour
         isAttack = false;
         isCoolTime = false;
         attackCollision.SetActive(false);
+
+        isHitCool = false;
+        countHitCoolTime = 0;
+        hitCoolTime = playerData.attackTime;
     }
     private void Update()
     {
         CountDelayTime();
         CountAttackTime();
         CountCoolTime();
+
+        UpdateCoolTime();
     }
     public void Attack()
     {
@@ -81,4 +88,13 @@ public class EnemyAttack : MonoBehaviour
 
     public bool GetIsAttack() { return isAttack; }
     public bool GetIsDelay() { return isDelay; }
+
+    public void StartHitCool()
+    {
+        StartCoolTime();
+    }
+    public bool GetIsHitCool()
+    {
+        return isHitCool;
+    }
 }
