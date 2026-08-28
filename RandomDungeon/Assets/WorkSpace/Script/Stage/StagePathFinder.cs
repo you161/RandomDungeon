@@ -38,28 +38,6 @@ public class StagePathFinder : MonoBehaviour
         
         return distances;
     }
-
-    //一番遠い部屋を取得
-    public Vector2Int FindFarthestRoom(Vector2Int startPosition)
-    {
-        Dictionary<Vector2Int, int> distances = GetRoomDistances(startPosition);
-
-        Vector2Int farthestPosition = startPosition;
-
-        int maxDistance = 0;
-
-        foreach (var pair in distances)
-        {
-            if (pair.Value > maxDistance)
-            {
-                maxDistance = pair.Value;
-                farthestPosition = pair.Key;
-            }
-        }
-
-        return farthestPosition;
-    }
-
     //逃げる先を取得
     public Vector3 GetEscapeDestination(Vector3 enemyPosition,Vector3 playerPosition)
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 public class UnLockClear : MonoBehaviour
 {
     [SerializeField] private EnemyHP enemyHP = null;
-    [SerializeField] private StageManager stageManager = null;
+    [SerializeField] private EscapeEnemyController escapeEnemyController = null;
 
     private void OnEnable()
     {
@@ -17,6 +17,6 @@ public class UnLockClear : MonoBehaviour
 
     private void UnlockClear()
     {
-        stageManager.UnlockClear();
+        escapeEnemyController.SpawnGoalItem();
     }
 }

@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
     private Vector2Int escapeEnemyRoomPosition;
     private bool hasEscapeEnemyRoom = false;
 
-    public void SpawnEnemies( Vector2Int goalPosition)
+    public void SpawnEnemies()
     {
         Dictionary<Vector2Int, GameObject> rooms = stageGenerator.GetRooms();
         List<Vector2Int> roomOrder = stageGenerator.GetRoomOrder();
@@ -50,12 +50,6 @@ public class EnemySpawner : MonoBehaviour
 
             Vector2Int roomPosition = roomOrder[i];
 
-            //ゴール部屋は生成しない
-            if (roomPosition == goalPosition)
-            {
-                continue;
-            }
-
             //逃げる敵がいる部屋には生成しない
             if (hasEscapeEnemyRoom && roomPosition == escapeEnemyRoomPosition)
             {
@@ -83,7 +77,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void SpawnEscapeEnemy(Vector2Int goalPosition)
+    public void SpawnEscapeEnemy()
     {
         Dictionary<Vector2Int, GameObject> rooms = stageGenerator.GetRooms();
 
@@ -104,12 +98,6 @@ public class EnemySpawner : MonoBehaviour
                 continue;
             }
 
-            //ゴール部屋
-            if (roomPosition == goalPosition)
-            {
-                continue;
-            }
-
             candidates.Add(roomPosition);
         }
 
@@ -123,12 +111,6 @@ public class EnemySpawner : MonoBehaviour
             {
                 //スタート部屋には生成しない
                 if (roomPosition == Vector2Int.zero)
-                {
-                    continue;
-                }
-
-                //ゴール部屋には生成しない
-                if (roomPosition == goalPosition)
                 {
                     continue;
                 }
