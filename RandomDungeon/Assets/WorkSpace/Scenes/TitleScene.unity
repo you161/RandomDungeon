@@ -260,7 +260,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 100}
+  m_SizeDelta: {x: 550, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &464412203
 MonoBehaviour:
@@ -576,6 +576,10 @@ PrefabInstance:
       propertyPath: fadeImage
       value: 
       objectReference: {fileID: 1842162952}
+    - target: {fileID: 660155483771288168, guid: 81016ecfa99970941ad97d45c72dc43a, type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 1842162953}
     - target: {fileID: 1679841016559148653, guid: 81016ecfa99970941ad97d45c72dc43a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -671,7 +675,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 100}
+  m_SizeDelta: {x: 550, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &910497326
 MonoBehaviour:
@@ -984,6 +988,7 @@ MonoBehaviour:
   - {fileID: 1436127013}
   - {fileID: 1449831315}
   gameSceneManager: {fileID: 1353200566}
+  actioneType: 0200000005000000
 --- !u!1 &1546727402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,12 +1404,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2658289574204529938, guid: 20f0d1c205f977247861bff48eff7715, type: 3}
   m_PrefabInstance: {fileID: 1842162950}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1842162953}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &1842162953 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1937469527352789643, guid: 20f0d1c205f977247861bff48eff7715, type: 3}
+  m_PrefabInstance: {fileID: 1842162950}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1864384844
 GameObject:
   m_ObjectHideFlags: 0
