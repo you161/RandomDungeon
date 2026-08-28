@@ -5,10 +5,12 @@ using UnityEngine.UI;
 public class FadeManager : MonoBehaviour
 {
     [SerializeField] private Image fadeImage = null;
+    [SerializeField] private GameObject fadeObject = null;
     [SerializeField] private float fadeDuration = 1.0f;
     private bool isFading = false;
     private void Start()
     {
+        fadeObject.SetActive(true);
         StartCoroutine(FadeIn());
     }
 
