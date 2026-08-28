@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,14 +6,27 @@ public class MenuSelector : MonoBehaviour
 {
     [SerializeField] private GameObject[] menu = null;
     [SerializeField] private GameSceneManager gameSceneManager = null;
+    [SerializeField] private ActionType[] actioneType = { ActionType.None };
     private GameObject selectedMenu = null;
 
+    private enum ActionType
+    {
+        None,
+        Title,
+        Main,
+        GameOver,
+        GameClear,
+        Exit
+    }
     private void Start()
     {
         foreach (GameObject item in menu)
         {
             item.transform.localScale = Vector3.one;
         }
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     private void Update()
     {
@@ -63,13 +77,36 @@ public class MenuSelector : MonoBehaviour
     {
         selectedMenu = selected;
 
-        if (selectedMenu == menu[0])
+        for(int i = 0; i < menu.Length; ++i)
         {
-            gameSceneManager.LoadMainScene();
+            if(menu[i] == selected)
+            {
+                SceneChange(actioneType[i]);
+            }
         }
-        else if (selectedMenu == menu[1])
+    }
+    private void SceneChange(ActionType nextScneType)
+    {
+        switch (nextScneType) 
         {
-            Application.Quit();
+            case ActionType.None:
+                Debug.Log("シーンが選択されていない");
+                break;
+            case ActionType.Title:
+                gameSceneManager.LoadTitleScene();
+                break;
+            case ActionType.Main:
+                gameSceneManager.LoadMainScene();
+                break;
+            case ActionType.GameClear:
+                gameSceneManager.LoadClearScene();
+                break;
+            case ActionType.GameOver:
+                gameSceneManager.LoadGameOverScene();
+                break;
+            case ActionType.Exit:
+                Application.Quit();
+                break;
         }
     }
 }
