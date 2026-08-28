@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17107e21d5bc09049b4f4b7211e93cbe, type: 3}
   m_Name: StageData
   m_EditorClassIdentifier: Assembly-CSharp::StageData
-  roomCount: 30
+  roomCount: 20
   roomSize: 10
-  enemySpawnInterval: 5
+  enemySpawnInterval: 2
   maxWidth: 10
   maxHeight: 3
   latestRoomRate: 0.8
