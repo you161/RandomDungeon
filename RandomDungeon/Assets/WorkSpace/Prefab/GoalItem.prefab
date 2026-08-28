@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 348552855210685725}
   - component: {fileID: 9196219786976834677}
   - component: {fileID: 1646580732100526650}
+  - component: {fileID: 940408413577808693}
   m_Layer: 0
   m_Name: GoalItem
   m_TagString: Untagged
@@ -140,3 +141,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &940408413577808693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095999734024287254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd49e547092ee2a4baea47ad21fed144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoalItem
+  playerData: {fileID: 11400000, guid: 1bd15c9d3551c674ca74cab67f6b5501, type: 2}
+  gameSceneManager: {fileID: 0}
