@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private EnemyMove enemyMove = null;
     [SerializeField] private EnemyPatrol enemyPatrol = null;
     [SerializeField] private EnemyAttack enemyAttack = null;
+    [SerializeField] private FadeManager fadeManager = null;
     private bool isKnockback = false;
     private void Start()
     {
@@ -15,6 +16,11 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        if (fadeManager.GetIsFading())
+        {
+            return;
+        }
+
         if (isKnockback)
         {
             enemyMove.SetCanMove(false);

@@ -9,7 +9,9 @@ public class EscapeEnemyController : MonoBehaviour
     [SerializeField] private StagePathFinder stagePathFinder = null;
     [SerializeField] private EnemyData enemyData = null;
     [SerializeField] private EnemyHP enemyHP = null;
+    [SerializeField] private FadeManager fadeManager = null;
     [SerializeField] private GameObject smokeEffect = null;
+    [SerializeField] private GameObject goalItem = null;
     private bool isEscaping = false;
     private Vector3 escapeDestination;
     private void Start()
@@ -19,6 +21,11 @@ public class EscapeEnemyController : MonoBehaviour
     }
     private void Update()
     {
+        if (fadeManager.GetIsFading())
+        {
+            return;
+        }
+
         Move();
     }
     private void Move()
@@ -94,5 +101,10 @@ public class EscapeEnemyController : MonoBehaviour
         }
         //ワープ
         agent.Warp(warpPosition);
+    }
+    public void SpawnGoalItem()
+    {
+        GameObject item = Instantiate(goalItem,transform.position,Quaternion.identity);
+        item.SetActive(true);
     }
 }
