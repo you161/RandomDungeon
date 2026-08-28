@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 761724563149976409}
-  - component: {fileID: 7756864729398342929}
   - component: {fileID: 6722974385849253857}
   - component: {fileID: 2311834325737534885}
   - component: {fileID: 1056506314297800914}
@@ -18,13 +17,13 @@ GameObject:
   - component: {fileID: 2402159252241070581}
   - component: {fileID: 7649873826804570032}
   - component: {fileID: 5280006948101481126}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyManager
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &761724563149976409
 Transform:
   m_ObjectHideFlags: 0
@@ -43,33 +42,6 @@ Transform:
   - {fileID: 7478033167255543024}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &7756864729398342929
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 404981761913641886}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 84
-  m_CollisionDetection: 2
 --- !u!65 &6722974385849253857
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -108,6 +80,7 @@ MonoBehaviour:
   enemyMove: {fileID: 1056506314297800914}
   enemyPatrol: {fileID: 7273744671561093775}
   enemyAttack: {fileID: 2664716784891768363}
+  fadeManager: {fileID: 0}
 --- !u!114 &1056506314297800914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   enemyData: {fileID: 11400000, guid: 0c0b3603771620440a61c163a6829c34, type: 2}
+  playerData: {fileID: 11400000, guid: 1bd15c9d3551c674ca74cab67f6b5501, type: 2}
   attackCollision: {fileID: 5103126355604581362}
 --- !u!114 &2402159252241070581
 MonoBehaviour:
@@ -215,7 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8737772092437868548}
   - component: {fileID: 3775448045332110925}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HPGage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +241,7 @@ GameObject:
   - component: {fileID: 2090700038644371690}
   - component: {fileID: 7461235092972071514}
   - component: {fileID: 2774315748057399555}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HpBGImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,8 +316,7 @@ GameObject:
   - component: {fileID: 895731272831076227}
   - component: {fileID: 1705339955694172593}
   - component: {fileID: 8559292177035941287}
-  - component: {fileID: 1064369097084319125}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,27 +395,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1064369097084319125
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4801896576718280134}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5103126355604581362
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +408,7 @@ GameObject:
   - component: {fileID: 6334057406750092537}
   - component: {fileID: 4882121063200787645}
   - component: {fileID: 6298833294830490799}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyAttacCollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackCollision
   playerData: {fileID: 11400000, guid: 1bd15c9d3551c674ca74cab67f6b5501, type: 2}
-  enemyData: {fileID: 11400000, guid: 0c0b3603771620440a61c163a6829c34, type: 2}
+  enemyAttack: {fileID: 2664716784891768363}
   enemy: {fileID: 761724563149976409}
 --- !u!1 &6735340797013149199
 GameObject:
@@ -583,7 +535,7 @@ GameObject:
   - component: {fileID: 26192236054722953}
   - component: {fileID: 8110016083184856789}
   - component: {fileID: 6388529715425235200}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -684,7 +636,7 @@ GameObject:
   - component: {fileID: 5936819347197505835}
   - component: {fileID: 1381779985972004423}
   - component: {fileID: 5276461129144461205}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HpImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

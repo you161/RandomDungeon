@@ -9,14 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 761724563149976409}
-  - component: {fileID: 7756864729398342929}
   - component: {fileID: 6722974385849253857}
   - component: {fileID: 4199004609861327166}
   - component: {fileID: 1056506314297800914}
   - component: {fileID: 2402159252241070581}
   - component: {fileID: 6621078317960659055}
   - component: {fileID: 5280006948101481126}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EscapeEnemyManager
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -41,33 +40,6 @@ Transform:
   - {fileID: 368078784104324193}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &7756864729398342929
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 404981761913641886}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 84
-  m_CollisionDetection: 2
 --- !u!65 &6722974385849253857
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -185,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8737772092437868548}
   - component: {fileID: 3775448045332110925}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HPGage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +209,7 @@ GameObject:
   - component: {fileID: 2090700038644371690}
   - component: {fileID: 7461235092972071514}
   - component: {fileID: 2774315748057399555}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HpBGImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,8 +284,7 @@ GameObject:
   - component: {fileID: 895731272831076227}
   - component: {fileID: 1705339955694172593}
   - component: {fileID: 8559292177035941287}
-  - component: {fileID: 1064369097084319125}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EscapeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,27 +363,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1064369097084319125
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4801896576718280134}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6735340797013149199
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +375,7 @@ GameObject:
   - component: {fileID: 26192236054722953}
   - component: {fileID: 8110016083184856789}
   - component: {fileID: 6388529715425235200}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +476,7 @@ GameObject:
   - component: {fileID: 5936819347197505835}
   - component: {fileID: 1381779985972004423}
   - component: {fileID: 5276461129144461205}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HpImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,6 +551,14 @@ PrefabInstance:
     - target: {fileID: 1095999734024287254, guid: c0c9a798b9257fd4c9bde69a0da96e1c, type: 3}
       propertyPath: m_Name
       value: GoalItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095999734024287254, guid: c0c9a798b9257fd4c9bde69a0da96e1c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095999734024287254, guid: c0c9a798b9257fd4c9bde69a0da96e1c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3078011525705895664, guid: c0c9a798b9257fd4c9bde69a0da96e1c, type: 3}
       propertyPath: m_LocalPosition.x
