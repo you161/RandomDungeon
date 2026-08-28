@@ -5,6 +5,8 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb = null;
     [SerializeField] private PlayerData playerData = null;
+    [SerializeField] private float collisionRadius = 0.5f;
+    [SerializeField] private LayerMask wallLayer;
     private Vector3 moveDirection = Vector3.zero;
     private bool canMove = false;
 
@@ -55,24 +57,30 @@ public class PlayerMove : MonoBehaviour
     }
     private void Move()
     {
-        Vector3 horizontalDelta;
-        horizontalDelta.x = moveDirection.x * playerData.moveSpeed * Time.fixedDeltaTime;
-        horizontalDelta.y = 0.0f;
-        horizontalDelta.z = moveDirection.z * playerData.moveSpeed * Time.fixedDeltaTime;
-
-        Vector3 targetPosition = rb.position + horizontalDelta;
-
-        rb.MovePosition(targetPosition);
-
-        if(rb.linearVelocity != Vector3.zero)
+        if (rb.linearVelocity != Vector3.zero)
         {
             rb.linearVelocity = Vector3.zero;
         }
 
-        if(rb.angularVelocity != Vector3.zero)
+        float moveDistance = playerData.moveSpeed * Time.fixedDeltaTime;
+
+        Vector3 origin = rb.position + Vector3.up * 0.5f;
+
+        bool isHit = Physics.SphereCast(
+            origin,
+            collisionRadius,
+            moveDirection,
+            out RaycastHit hit,
+            moveDistance,
+            wallLayer
+        );
+
+        if (isHit)
         {
-            rb.angularVelocity = Vector3.zero;
+            return;
         }
+
+        rb.MovePosition(rb.position + moveDirection * moveDistance);
     }
     public void SetCanMove(bool value)
     {
